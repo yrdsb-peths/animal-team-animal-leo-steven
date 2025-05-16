@@ -1,30 +1,70 @@
+import greenfoot.*;
 /**
- * Write a description of class myWorld here.
+ * The World our hero lives in.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Leo
+ * @version April 2025
  */
-public class myWorld  
+public class MyWorld extends World 
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
+    public int score = 0;
+    Label scoreLabel;
+    int level = 1;
+    
     /**
-     * Constructor for objects of class myWorld
-     */
-    public myWorld()
-    {
-    }
-
-    /**
-     * An example of a method - replace this comment with your own
+     * Constructor for odjects of class MyWorld.
      * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
      */
-    public int sampleMethod(int y)
+    public MyWorld() 
     {
-        // put your code here
-        return x + y;
+        super(600, 400, 1, false);
+        
+        // Create the eleplant object 
+        Elephant elephant = new Elephant();
+        addObject(elephant, 300, 300);
+        
+        // Create a label
+        scoreLabel = new Label(0, 80);
+        addObject(scoreLabel, 50,50);
+        
+        createApple();
     }
+    
+    /**
+     * End the game and draw 'GameOver'
+     */
+    public void gameOver()
+    {
+        Label gameOverLabel = new Label("Game Over", 100);
+        addObject(gameOverLabel, 300, 200);
+        
+    }
+    
+    /**
+     * Increase score
+     */
+    public void increaseScore()
+    {
+        score++;
+        scoreLabel.setValue(score);
+        
+        if(score % 5 == 0)
+        {
+            level += 1;
+        }
+    }
+
+    
+    /**
+     * Create a new apple at random location at top of screen 
+     */
+    public void createApple()
+    {
+        Apple apple = new Apple();
+        apple.setSpeed(level);
+        int x = Greenfoot.getRandomNumber(600);
+        int y = 0;
+        addObject(apple, x, y);    
+    }   
 }
+
